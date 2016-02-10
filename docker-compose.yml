@@ -3,3 +3,25 @@ version: "2"
 services:
   aurora:
     build: app/
+    links:
+      - db
+    networks:
+      - back-tier
+
+  db:
+    image: postgres
+    volumes:
+      - postgres-data:/etc/postgresql
+      - postgres-data:/var/log/postgresql
+      - postgres-data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: aurora
+    env_file: ./configs/aurora.env
+    networks:
+      - back-tier
+
+volumes:
+  postgres-data:
+
+networks:
+  back-tier:
