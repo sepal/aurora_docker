@@ -16,7 +16,7 @@ services:
       - postgres-data:/var/lib/postgresql
     environment:
       POSTGRES_USER: aurora
-    env_file: ./configs/aurora.env
+      POSTGRES_PASSWORD: {DB_PASSWORD}
     networks:
       - back-tier
 
