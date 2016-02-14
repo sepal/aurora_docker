@@ -3,6 +3,9 @@ version: "2"
 services:
   aurora:
     build: aurora/
+    volumes:
+     - file_data:/app/media
+     - file_data:/app/static
     links:
       - db
     environment:
@@ -25,6 +28,7 @@ services:
       - back-tier
 
 volumes:
+  file_data:
   db_data:
 
 networks:
