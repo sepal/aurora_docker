@@ -13,7 +13,7 @@ RUN sed -i s:/vagrant/aurora/:/app/: local_settings.py \
   && sed -i s/"'PASSWORD': 'root'"/"'PASSWORD': os.environ['POSTGRES_PASSWORD']"/ AuroraProject/settings.py \
   && sed -i s/"'HOST': 'localhost'"/"'HOST': 'db'"/ AuroraProject/settings.py \
   && sed -i s/"'PORT': '8080'"/"'PORT': '5432'"/ AuroraProject/settings.py \
-  && cp  /app/Slides/settings.example.py /app/Slides/settings.py
+  && cp  /app/Slides/settings.example.py /app/Slides/settings.py \
   && mkdir -p /app/media
 EXPOSE 80
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
