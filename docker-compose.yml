@@ -2,26 +2,23 @@ version: "2"
 
 services:
   aurora:
-    build: app/
+    build: aurora/
     links:
       - db
+    environment:
+      VIRTUAL_HOST: aurora.sepal.local
+    env_file: ./config/password.env
     networks:
       - back-tier
-
+    ports:
+      - 8080:80
   db:
-    image: postgres
-    volumes:
-      - postgres-data:/etc/postgresql
-      - postgres-data:/var/log/postgresql
-      - postgres-data:/var/lib/postgresql
+    image: postgres:9.5
     environment:
       POSTGRES_USER: aurora
-      POSTGRES_PASSWORD: {DB_PASSWORD}
+    env_file: ./config/password.env
     networks:
       - back-tier
-
-volumes:
-  postgres-data:
 
 networks:
   back-tier:
