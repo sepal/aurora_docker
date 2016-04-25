@@ -6,15 +6,15 @@ services:
     volumes:
      - file_data:/app/media
      - file_data:/app/static
-    links:
+    depends_on:
       - db
-    environment:
-      VIRTUAL_HOST: aurora.sepal.local
+      - aurora_rabbit
     env_file: ./config/password.env
     networks:
       - back-tier
     ports:
       - 8080:80
+
   db:
     image: postgres:9.5
     environment:
@@ -24,6 +24,12 @@ services:
       - db_data:/var/log/postgresql
       - db_data:/var/lib/postgresql
     env_file: ./config/password.env
+    networks:
+      - back-tier
+
+  aurora_rabbit:
+    image: rabbitmq:3.6
+    hostname: aurora_rabbit
     networks:
       - back-tier
 
