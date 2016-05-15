@@ -10,10 +10,8 @@ services:
       - db
       - aurora_rabbit
     env_file: ./config/password.env
-    networks:
-      - back-tier
     ports:
-      - 8080:80
+      - 80:80
 
   db:
     image: postgres:9.5
@@ -24,18 +22,13 @@ services:
       - db_data:/var/log/postgresql
       - db_data:/var/lib/postgresql
     env_file: ./config/password.env
-    networks:
-      - back-tier
 
   aurora_rabbit:
     image: rabbitmq:3.6
     hostname: aurora_rabbit
-    networks:
-      - back-tier
+
 
 volumes:
   file_data:
   db_data:
 
-networks:
-  back-tier:
