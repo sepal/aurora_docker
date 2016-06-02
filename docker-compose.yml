@@ -2,33 +2,25 @@ version: "2"
 
 services:
   aurora:
-    build: aurora/
-    volumes:
-     - file_data:/app/media
-     - file_data:/app/static
-    depends_on:
-      - db
-      - aurora_rabbit
-    env_file: ./config/password.env
+    extends:
+      file: common.yml
+      service: aurora
+    links:
+    - database
+    - rabbitmq
     ports:
       - 80:80
 
-  db:
-    image: postgres:9.5
-    environment:
-      POSTGRES_USER: aurora
-    volumes:
-      - db_data:/etc/postgresql
-      - db_data:/var/log/postgresql
-      - db_data:/var/lib/postgresql
-    env_file: ./config/password.env
+  database:
+    extends:
+      file: common.yml
+      service: database
 
-  aurora_rabbit:
-    image: rabbitmq:3.6
-    hostname: aurora_rabbit
-
+  rabbitmq:
+    extends:
+      file: common.yml
+      service: rabbitmq
 
 volumes:
   file_data:
   db_data:
-

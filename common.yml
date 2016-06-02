@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+  aurora:
+    image: igw/aurora
+    build: aurora/
+    volumes:
+    - file_data:/app/media
+    - file_data:/app/static
+    - ${DORK_SOURCE}/source
+    environment:
+      DORK_SOURCE_PATH: /source
+    ports:
+    - 80:80
+
+  database:
+    image: postgres:9.5
+    volumes:
+    - db_data:/etc/postgresql
+    - db_data:/var/log/postgresql
+    - db_data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: aurora
+      POSTGRES_PASSWORD: nosecret
+
+  rabbitmq:
+    image: rabbitmq:3.6
+    hostname: rabbitmq
+
+volumes:
+  file_data:
+  db_data:
