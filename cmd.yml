@@ -1,5 +1,9 @@
 version: '2'
 
+volumes:
+  files:
+  database:
+
 services:
   dev_setup:
     extends:
@@ -9,7 +13,3 @@ services:
     - ./scripts/setup.sh:/scripts/setup.sh
     - ./scripts/dev.sh:/scripts/dev.sh
     command: sh /scripts/dev.sh
-
-volumes:
-  file_data:
-  db_data:

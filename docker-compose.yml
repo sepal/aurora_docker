@@ -1,4 +1,8 @@
-version: "2"
+version: '2'
+
+volumes:
+  files:
+  database:
 
 services:
   aurora:
@@ -8,8 +12,6 @@ services:
     links:
     - database
     - rabbitmq
-    ports:
-      - 80:80
 
   database:
     extends:
@@ -21,6 +23,3 @@ services:
       file: common.yml
       service: rabbitmq
 
-volumes:
-  file_data:
-  db_data:
