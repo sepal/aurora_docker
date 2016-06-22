@@ -13,3 +13,9 @@ services:
     - ./scripts/setup.sh:/scripts/setup.sh
     - ./scripts/dev.sh:/scripts/dev.sh
     command: sh /scripts/dev.sh
+
+  manage:
+    extends:
+      file: common.yml
+      service: aurora
+    entrypoint: python manage.py

@@ -11,7 +11,7 @@ services:
     volumes:
     - files:/app/media
     - files:/app/static
-    - ${DORK_SOURCE}/source
+    - ${DORK_SOURCE}/:/app/code
     environment:
       DORK_SOURCE_PATH: /source
     ports:
