@@ -6,20 +6,34 @@ volumes:
 
 services:
   aurora:
-    extends:
-      file: common.yml
-      service: aurora
+    image: ${DORK_PROJECT}/aurora
+    build: aurora/
+    volumes:
+    - files:/app/media
+    - files:/app/static
+    environment:
+      DORK_SOURCE_PATH: /source
+    ports:
+    - 80:80
     links:
     - database
     - rabbitmq
+    labels:
+      dork.root: /app/code
+      dork.hotcode: ${DORK_HOT_CODE_PATHS}
 
   database:
-    extends:
-      file: common.yml
-      service: database
+    image: postgres:9.5
+    volumes:
+    - database:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USER: aurora
+      POSTGRES_PASSWORD: nosecret
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432
 
   rabbitmq:
-    extends:
-      file: common.yml
-      service: rabbitmq
+    image: rabbitmq:3.6
+    hostname: rabbitmq
 
