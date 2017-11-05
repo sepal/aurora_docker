@@ -35,17 +35,17 @@ DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'aurora',
-    'USER': 'aurora_dbuser',
+    'USER': 'postgres',
     'PASSWORD': 'nosecret',
-    'HOST': 'localhost',
+    'HOST': 'database',
     'PORT': '',
   },
   'plagcheck': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'plagcheck',
-    'USER': 'aurora_dbuser',
+    'USER': 'postgres',
     'PASSWORD': 'nosecret',
-    'HOST': 'localhost',
+    'HOST': 'database',
     'PORT': '',
   },
 }
